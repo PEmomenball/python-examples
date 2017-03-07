@@ -1,0 +1,30 @@
+#! python3
+import pyautogui, sys
+
+#dictionary for digits grouped by "y"
+
+found=dict()
+
+#locate Power
+for digit in range(10):
+    positions = pyautogui.locateOnScreen('digits/{}.png'.format(digit),region=(888,920, 150, 40),True)
+
+    for x,y,_,_ in positions:
+        if y not in found:
+            found[y]=dict()
+        found[y][x]=digit
+
+    result=[]
+
+    for row in sorted(found):
+        cols=sorted(found[row])
+        value=''.join(str(found[row][col]) for col in cols)
+        result.append(value)
+
+    return result
+
+if _name_ == '_main_':
+
+    img=pyautogui.screenshot('screenshot99.png',region=(888,920, 150, 40))
+
+    print('\n'.join(result))
